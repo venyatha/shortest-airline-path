@@ -1,2 +1,19 @@
 11/19
-- added makefile
+This week, we focused on planning our project and setting up the files that we needed for our git repository.
+We wrote up our team contract, decided on our project goals, and came up with a tentative timeline. In short, 
+we want our project to use breadth-first traversal, implement Dijkstra’s shortest path algorithm, and landmark 
+path in order to find the shortest airline routes from a source to a destination with a given transit airport.
+We also added our Makefile.
+
+
+11/28
+During our second meeting on Zoom, we roughly created the classes we needed to implement.
+Using the LiveShare extension on VSCode, we collaboratively did the following-
+We imported the OpenFlights dataset into data.txt, where we have data for the airlines. We then worked on
+readFromFile.cpp, where we implemented the file to vector method and then called the function in main.cpp.
+We also created a test for this method in tests.cpp, where our test case passed. After, we implemented the 
+extracting required info method and called the function in main. We also created a test case for this method
+in tests.cpp. We were not able to get our test to pass for a while, but we were finally able to fix it and 
+now the two methods in readFromFile.cpp work. Then we added the catch folder where created catch.hpp and 
+catchmain.cpp. Our tests are located in a tests folder, and for each of our tests we use a small sample
+size for the test. Then we moved our contracts pdfs to the contracts folder.
