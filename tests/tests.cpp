@@ -5,7 +5,9 @@
 
 
 TEST_CASE("Verify that file_to_vector works on a small example") {
-	std::vector<std::string> actual = file_to_vector("tests/smallSample.txt");
+	Data d;
+    
+    std::vector<std::string> actual = d.file_to_vector("tests/smallSample.txt");
 	// always check "expected" == "actual" --> be consistent
 
     std::vector<std::string> expected = {"2B,410,AER,2965,KZN,2990,,0,CR2", 
@@ -24,8 +26,10 @@ TEST_CASE("Verify that file_to_vector works on a small example") {
 }
 
 TEST_CASE("Verify that extract_required_info works correctly") {
-	std::vector<std::string> vec = file_to_vector("tests/smallSample.txt");
-    std::vector<std::string> actual = extract_required_info(vec);
+	Data d;
+    std::vector<std::string> vec = d.file_to_vector("tests/smallSample.txt");
+    d.extract_required_info(vec);
+    std::vector<std::string> actual = d.getAll();
     
 	// always check "expected" == "actual" --> be consistent
 
@@ -41,4 +45,18 @@ TEST_CASE("Verify that extract_required_info works correctly") {
                                         "2I,8359,2812,2789,0"};
 
 	REQUIRE(expected == actual);
+}
+
+TEST_CASE("Verify that ids are unique") {
+	Data d;
+    std::vector<std::string> vec = d.file_to_vector("tests/smallSample.txt");
+    d.extract_required_info(vec);
+    std::vector<std::string> actual = d.getIds();
+    
+	// always check "expected" == "actual" --> be consistent
+
+    std::vector<std::string> expected = {"410","8359"};
+
+	
+    REQUIRE(expected == actual);
 }

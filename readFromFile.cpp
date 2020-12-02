@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-vector<string> file_to_vector(const string& filename) {
+vector<string> Data::file_to_vector(const string& filename) {
     ifstream text(filename);
     string line;
     vector<string> out;
@@ -17,9 +17,14 @@ vector<string> file_to_vector(const string& filename) {
     return out;
 }
 
-vector<string> extract_required_info(const vector<string> vec) {
+Data::Data(){}
+
+Data::Data(const string& filename) {
+    extract_required_info(file_to_vector(filename));
+}
+
+void Data::extract_required_info(const vector<string> vec) {
     //airline, airline id, source airport id, destination airport id, stops
-    vector<string> toReturn;
     for (auto line : vec) {
         stringstream ss(line);
         vector<string> vec_line;
@@ -31,13 +36,25 @@ vector<string> extract_required_info(const vector<string> vec) {
 
             if (vec_line.size() == 8) {
                 string info = vec_line[0] + "," + vec_line[1] + "," + vec_line[3] + "," 
-                        + vec_line[5] + "," + vec_line[7];
-                toReturn.push_back(info);
+                        + vec_line[5] + "," + vec_line[7];            
+                all_data.push_back(info);
+                //push into airport id vec if unique id
+                if (ids.size() == 0) {
+                    ids.push_back(vec_line[1]);
+                } else if (ids[ids.size() - 1] != vec_line[1]) {
+                    ids.push_back(vec_line[1]);
+                }
             } else {
                 continue;
             }
         }
     }
-    return toReturn;
+}
 
+vector<string> Data::getIds() {
+    return ids;
+}
+
+vector<string> Data::getAll() {
+    return all_data;
 }

@@ -7,8 +7,9 @@ using namespace std;
 int main() {
     
     //print vector
-    vector<string> vec = file_to_vector("data.txt");
-    vector<string> req = extract_required_info(vec);
+    Data d;
+    vector<string> vec = d.file_to_vector("data.txt");
+    vector<string> req = d.extract_required_info(vec);
 	for (auto word : req) {
 		cout << word << endl;
 	}
