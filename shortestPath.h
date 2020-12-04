@@ -1,21 +1,19 @@
 #pragma once
+#include <cstdlib>
+#include <vector>
+#include <string>
+#include <map>
 using namespace std;
-#include <vector>;
-#include <string>;
 
 class Graph {
     public:
-        Graph(vector<string> nodes, vector<string> all_info);
+        Graph();
+        Graph(map<string, int> city_ids, vector<vector<string>> all_data);
+        vector<vector<int>> getGraph();
+        
         
         //void shortestPath(int data[][], int start);
 
     private:
         vector<vector<int>> g;
-        
-    
 };
-
-
-
-
-

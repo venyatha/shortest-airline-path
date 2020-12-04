@@ -27,3 +27,17 @@ we also pushed back all the airport id's. We also created a test case checking t
 For our shortest path algorithm, we are using a matrix where we store the vectors for our data. We then
 created the constructor for our Graph class, where we initialized everything in the adjacency matrix to 
 -1.
+
+12/2
+Today, we had a shorter session where we focused on populating our adjacency matrix for our Dijkstra’s 
+shortest path algorithm. We changed our variable for info on the flights between airports in our readFromFile.cpp
+from a string to a vector because this would allow us to populate the matrix. In our shortestPath.cpp file,
+we iterate through our data and populate the vector of city id's. We also created a test case for the adjacency 
+matrix to verify that it's been correctly set up. We also created a getter method for the graph which will return
+our newly populated graph. We got a linker error which we had trouble solving, however, after a while we were able
+to fix our issue.
+
+12/3
+Today, we worked on getting our test case for the adjacency matrix to work. It took some time to figure out what our
+expected matrix was supposed to look like, but after analyzing the data and making a Google spreadsheet, we were able to
+match our expected to the actual. We were eventually able to get all 4 tests we have written to pass.
