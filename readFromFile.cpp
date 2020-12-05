@@ -60,10 +60,10 @@ void Data::extract_required_info(const vector<string> vec) {
                 //push into airport id vec if unique id
                 if (ids.size() == 0) {
                     ids.push_back(vec_line[3]);
-                    city_ids->operator[](vec_line[3]) = ids.size() - 1;
+                    (*city_ids)[vec_line[3]] = ids.size() - 1;
                 } else if (ids[ids.size() - 1] != vec_line[3]) {
                     ids.push_back(vec_line[3]);
-                    city_ids->operator[](vec_line[3]) = ids.size() - 1;
+                    (*city_ids)[vec_line[3]] = ids.size() - 1;
                 }
             } else {
                 continue;

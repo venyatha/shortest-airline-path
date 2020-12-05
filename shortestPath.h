@@ -9,7 +9,7 @@ class Graph {
     public:
         Graph();
         ~Graph();
-        Graph(map<string, int>* city_ids, vector<vector<string>>* all_data);
+        Graph(map<string, int>* city_ids, vector<string> ids, vector<vector<string>>* all_data);
         vector<vector<int>>* getGraph();
         
         

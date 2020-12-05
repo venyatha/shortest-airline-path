@@ -73,21 +73,22 @@ TEST_CASE("Verify that adjacency matrix is set up correctly") {
     std::vector<std::string> vec = d.file_to_vector("tests/smallSample.txt");
     d.extract_required_info(vec);
     std::vector<std::vector<std::string>>* all_data = d.getAll();
+    std::vector<std::string> ids = d.getIds();
     map<std::string, int>* city_ids = d.getCityIds();
     for (const auto& elem : *city_ids) {
         std::cout << elem.first << " " << elem.second << std::endl;
     }
     
-    Graph g(city_ids, all_data);
+    Graph g(city_ids, ids, all_data);
     std::vector<std::vector<int>>* actual = g.getGraph();
     
 
     std::vector<std::vector<int>> expected = {{-1, 1, -1, -1, -1, -1},
-                {0, -1, -1, -1, -1, -1},
-                {-1, -1, -1, 0, -1, -1},
-                {-1, -1, -1, -1, 0, 0},
-                {-1, -1, -1, -1, -1, 1},
-                {-1, -1, -1, 0, -1, -1}};
+                                            {0, -1, -1, -1, -1, -1},
+                                            {-1, -1, -1, 0, -1, -1},
+                                            {-1, -1, -1, -1, 0, 0},
+                                            {-1, -1, -1, -1, -1, 1},
+                                            {-1, -1, -1, 0, -1, -1}};
 
 	
     REQUIRE(expected == *actual);
