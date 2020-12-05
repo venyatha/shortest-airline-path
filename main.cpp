@@ -9,7 +9,7 @@ int main() {
     
     //print vector
     Data d;
-    vector<string> vec = d.file_to_vector("tests/smallSample.txt");
+    vector<string> vec = d.file_to_vector("data.txt");
     d.extract_required_info(vec);
     
     vector<vector<string>>* all_data = d.getAll();

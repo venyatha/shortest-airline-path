@@ -23,14 +23,17 @@ Data::~Data() {
     delete city_ids;
 }
 
-Data::Data(){}
+Data::Data(){
+    all_data = new vector<vector<string>>();
+    city_ids = new map<string, int>();
+}
 
 
 
 Data::Data(const string& filename) {
     
-    all_data = new vector<vector<string>>;
-    city_ids = new map<string, int>;
+    all_data = new vector<vector<string>>();
+    city_ids = new map<string, int>();
     extract_required_info(file_to_vector(filename));
     
 
@@ -46,7 +49,7 @@ void Data::extract_required_info(const vector<string> vec) {
             string substring;
             getline(ss, substring, ',');
             vec_line.push_back(substring);
-            cout << vec_line[0] << " " << vec_line[7] << endl;
+            
             if (vec_line.size() == 8) {
                 //string info = vec_line[0] + "," + vec_line[1] + "," + vec_line[3] + "," 
                 //        + vec_line[5] + "," + vec_line[7];            
