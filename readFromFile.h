@@ -14,12 +14,13 @@ class Data {
         //2 -> source airport id
         //3 -> destination airport id
         //4 -> number of stops
-        vector<vector<string>> all_data;
+        vector<vector<string>>* all_data;
         vector<string> ids;
-        map<string, int> city_ids;
+        map<string, int>* city_ids;
 
     public:
         Data();
+        ~Data();
         Data(const string& filename);
 
 
@@ -32,6 +33,6 @@ class Data {
         void extract_required_info(const vector<string> vec);
 
         vector<string> getIds();
-        vector<vector<string>> getAll();
-        map<string, int> getCityIds();
+        vector<vector<string>>* getAll();
+        map<string, int>* getCityIds();
 };

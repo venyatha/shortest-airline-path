@@ -18,10 +18,22 @@ vector<string> Data::file_to_vector(const string& filename) {
     return out;
 }
 
+Data::~Data() {
+    delete all_data;
+    delete city_ids;
+}
+
 Data::Data(){}
 
+
+
 Data::Data(const string& filename) {
+    
+    all_data = new vector<vector<string>>;
+    city_ids = new map<string, int>;
     extract_required_info(file_to_vector(filename));
+    
+
 }
 
 void Data::extract_required_info(const vector<string> vec) {
@@ -41,14 +53,14 @@ void Data::extract_required_info(const vector<string> vec) {
                 // 0 = airline code, 1 = airline id, 3 = source airport id, 
                 // 5 = destination airport id, 7 = stops
                 vector<string> info = {vec_line[0], vec_line[1],vec_line[3], vec_line[5], vec_line[7]};
-                all_data.push_back(info);
+                all_data->push_back(info);
                 //push into airport id vec if unique id
                 if (ids.size() == 0) {
                     ids.push_back(vec_line[3]);
-                    city_ids[vec_line[3]] = ids.size() - 1;
+                    city_ids->operator[](vec_line[3]) = ids.size() - 1;
                 } else if (ids[ids.size() - 1] != vec_line[3]) {
                     ids.push_back(vec_line[3]);
-                    city_ids[vec_line[3]] = ids.size() - 1;
+                    city_ids->operator[](vec_line[3]) = ids.size() - 1;
                 }
             } else {
                 continue;
@@ -61,10 +73,10 @@ vector<string> Data::getIds() {
     return ids;
 }
 
-vector<vector<string>> Data::getAll() {
+vector<vector<string>>* Data::getAll() {
     return all_data;
 }
 
-map<string, int> Data::getCityIds() {
+map<string, int>* Data::getCityIds() {
     return city_ids;
 }

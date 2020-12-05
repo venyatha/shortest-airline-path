@@ -8,12 +8,13 @@ using namespace std;
 class Graph {
     public:
         Graph();
-        Graph(map<string, int> city_ids, vector<vector<string>> all_data);
-        vector<vector<int>> getGraph();
+        ~Graph();
+        Graph(map<string, int>* city_ids, vector<vector<string>>* all_data);
+        vector<vector<int>>* getGraph();
         
         
         //void shortestPath(int data[][], int start);
 
     private:
-        vector<vector<int>> g;
+        vector<vector<int>>* g;
 };
