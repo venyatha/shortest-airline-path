@@ -1,5 +1,5 @@
 EXENAME = finalproj
-OBJS = readFromFile.o main.o shortestPath.o
+OBJS = readFromFile.o main.o Dijkstra.o graph.o
 
 CXX = clang++
 CXXFLAGS = $(CS225) -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
@@ -30,11 +30,11 @@ output_msg: ; $(CLANG_VERSION_MSG)
 $(EXENAME): output_msg $(OBJS)
 	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
 
-readFromFile.o: main.cpp readFromFile.cpp shortestPath.cpp
-	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp shortestPath.cpp
+readFromFile.o: main.cpp readFromFile.cpp Dijkstra.cpp graph.cpp
+	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Dijkstra.cpp graph.cpp
 
-test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp shortestPath.cpp
-	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp shortestPath.cpp $(LDFLAGS) -o test
+test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Dijkstra.cpp graph.cpp
+	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Dijkstra.cpp graph.cpp $(LDFLAGS) -o test
 
 clean:
 	-rm -f *.o $(EXENAME) test
