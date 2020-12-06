@@ -8,7 +8,7 @@
 using namespace std;
 
 int main() {
-    vector<string> vec = file_to_vector("tests/smallSample.txt");
+    vector<string> vec = file_to_vector("routes.txt");
     
     vector<string*> all_data = extract_required_info(vec);
 
