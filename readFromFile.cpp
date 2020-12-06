@@ -1,6 +1,4 @@
 #include "readFromFile.h"
-#include <fstream>
-#include <sstream>
 
 vector<string> file_to_vector(const string& filename) {
     ifstream text(filename);
@@ -17,12 +15,11 @@ vector<string> file_to_vector(const string& filename) {
 }
 
 vector<string*> extract_required_info(const vector<string> vec) {
-    //airline, airline id, source airport id, destination airport id, stops
+    // source, stops, destination
     vector<string*> all_data;
     for (auto line : vec) {
         stringstream ss(line);
         vector<string> vec_line;
-        
         while (ss.good()) {
             string substring;
             getline(ss, substring, ',');

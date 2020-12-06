@@ -1,24 +1,18 @@
 #include "Dijkstra.h"
-#include <sstream>
 
 using namespace std;
 
 Dijkstra::Dijkstra(Vertex* start, vector<string*> all_data) : g_(true, true) {
     start_ = *start;
-    for (unsigned i = 0; i < all_data.size(); i++) { 
-        // split string by space
+
+    for (unsigned i = 0; i < all_data.size(); i++) {
         vector<string> vec;
         stringstream ss(*all_data[i]);
-
         while( ss.good() ) {
             string substr;
             getline( ss, substr, ',' );
             vec.push_back(substr);
-        } 
-
-        /*for (auto v : vec) {
-            cout << v << endl;
-        }*/
+        }
 
         if (!g_.vertexExists(vec[0])) {
             g_.insertVertex(vec[0]);
