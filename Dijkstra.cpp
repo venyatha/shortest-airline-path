@@ -110,6 +110,25 @@ string Dijkstra::printPath(vector<Vertex> path, Vertex source, Vertex dest)
     }
 }
 
+vector<Vertex> Dijkstra::landmarkPath(Vertex source, Vertex dest, Vertex stop)
+{
+    vector<Vertex> first = shortestPath(source, stop);
+    if (first.empty())
+    {
+        return first;
+    }
+    vector<Vertex> second = shortestPath(stop, dest);
+    if (second.empty())
+    {
+        return second;
+    }
+    // remove the duplicated stop vector
+    first.erase(first.begin());
+    second.insert(second.end(), first.begin(), first.end());
+    return second;
+}
+
+
 string Dijkstra::printLandmarkPath(vector<Vertex> path, Vertex source, Vertex stop, Vertex dest)
 {
     if (path.empty())
@@ -140,22 +159,4 @@ string Dijkstra::printLandmarkPath(vector<Vertex> path, Vertex source, Vertex st
 const Graph &Dijkstra::getGraph() const
 {
     return g_;
-}
-
-vector<Vertex> Dijkstra::landmarkPath(Vertex source, Vertex dest, Vertex stop)
-{
-    vector<Vertex> first = shortestPath(source, stop);
-    if (first.empty())
-    {
-        return first;
-    }
-    vector<Vertex> second = shortestPath(stop, dest);
-    if (second.empty())
-    {
-        return second;
-    }
-    // remove the duplicated stop vector
-    first.erase(first.begin());
-    second.insert(second.end(), first.begin(), first.end());
-    return second;
 }

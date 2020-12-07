@@ -13,7 +13,7 @@ int main() {
     Dijkstra d(all_data);
 
     // user input 
-    cout << "shortest path or landmark path?";
+    cout << "Shortest path or landmark path? ";
     string option;
     getline(std::cin, option);
     if (option == "shortest path") {

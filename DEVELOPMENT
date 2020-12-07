@@ -1,12 +1,12 @@
-11/19
-This week, we focused on planning our project and setting up the files that we needed for our git repository.
+Week of 11/16:
+    This week, we focused on planning our project and setting up the files that we needed for our git repository.
 We wrote up our team contract, decided on our project goals, and came up with a tentative timeline. In short, 
 we want our project to use breadth-first traversal, implement Dijkstra’s shortest path algorithm, and landmark 
 path in order to find the shortest airline routes from a source to a destination with a given transit airport.
 We also added our Makefile.
 
-11/28
-During our second meeting on Zoom, we roughly created the classes we needed to implement.
+Week of 11/23:
+    During our second meeting on Zoom, we roughly created the classes we needed to implement.
 Using the LiveShare extension on VSCode, we collaboratively did the following-
 We imported the OpenFlights dataset into data.txt, where we have data for the airlines. We then worked on
 readFromFile.cpp, where we implemented the file to vector method and then called the function in main.cpp.
@@ -17,8 +17,8 @@ now the two methods in readFromFile.cpp work. Then we added the catch folder whe
 catchmain.cpp. Our tests are located in a tests folder, and for each of our tests we use a small sample
 size for the test. Then we moved our contracts pdfs to the contracts folder.
 
-12/1
-Using the LiveShare extension on VSCode again, during this meeting we began working on our shortest path
+Week of 11/30:
+    Using the LiveShare extension on VSCode again, during this meeting we began working on our shortest path
 algorithm (Dijkstra’s). We created the header and cpp files, and began to consider how we would write our
 methods. We decided we would be using a vector for all the flight data we imported earlier, and another
 vector for the airport ids. We created a method in readFromFile.h which will extract the data in data.txt
@@ -26,25 +26,27 @@ and convert it to a vector. In our method for extracting the required info which
 we also pushed back all the airport id's. We also created a test case checking that the id's are unique.
 For our shortest path algorithm, we are using a matrix where we store the vectors for our data. We then
 created the constructor for our Graph class, where we initialized everything in the adjacency matrix to 
--1.
-
-12/2
-Today, we had a shorter session where we focused on populating our adjacency matrix for our Dijkstra’s 
+-1. In our next, shorter session where we focused on populating our adjacency matrix for our Dijkstra’s 
 shortest path algorithm. We changed our variable for info on the flights between airports in our readFromFile.cpp
 from a string to a vector because this would allow us to populate the matrix. In our shortestPath.cpp file,
 we iterate through our data and populate the vector of city id's. We also created a test case for the adjacency 
 matrix to verify that it's been correctly set up. We also created a getter method for the graph which will return
 our newly populated graph. We got a linker error which we had trouble solving, however, after a while we were able
-to fix our issue.
+to fix our issue. Later, we worked on getting our test case for the adjacency matrix to work. It took some time to
+figure out what our expected matrix was supposed to look like, but after analyzing the data and making a Google
+spreadsheet, we were able to match our expected to the actual. We were eventually able to get all 4 tests we have
+written to pass. However, we starting getting segfaults we were unable to solve, so we scrapped our entire adjacency
+matrix and instead stored our data into a graph, in which the vertices are the airports, the edges are the routes,
+and the edge weights are the number of stops between the source and destination airports. We then used our graph to
+implement our shortest path function, which gets the shortest path based on the number of stops between the source
+airport and the destination airport. We then wrote the unit tests required to test the functionality of our Dijstrka
+class and shortestPath algorithm while making sure to include edge cases like having no path between edges and direct
+flights.
 
-12/3
-Today, we worked on getting our test case for the adjacency matrix to work. It took some time to figure out what our
-expected matrix was supposed to look like, but after analyzing the data and making a Google spreadsheet, we were able to
-match our expected to the actual. We were eventually able to get all 4 tests we have written to pass.
-
-12/6 
-We scrapped our entire adjacency matrix and instead stored our data into a graph, in which the vertices are the airports,
-the edges are the routes, and the edge weights are the number of stops between the source and destination airports.
-We then used our graph to implement our shortest path function, which gets the shortest path based on the number of stops
-between the source airport and the destination airport. We then wrote the unit tests required to test the functionality of
-our Dijstrka class and shortestPath algorithm while making sure to include edge cases like having no path between edges and direct flights.
+Week of 12/7:
+    Now that our Dijkstra’s algorithm was working, we were able to get started on and finish lanmark path. In our landmark
+path function, we called the shortest path algorithm we wrote for Dijkstra's twice on two vectors; one vector from
+the source to the stop, and the other vector from the stop to the destination. We then concatenated these vectors
+and return the second vector, finishing our landmark path function. Afterwards, we wrote the test cases requierd
+for our landmark path function, making sure we test all possibilities. We also cleaned up our main function so that we
+could take in user's input and provide a nice and simple output of either the shortest path or the landmark path.

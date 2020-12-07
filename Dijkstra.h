@@ -22,13 +22,6 @@ class Dijkstra {
         Dijkstra(vector<string*> all_data);
 
         /**
-         * Returns a constant reference to the state space graph.
-         * 
-         * @returns A constant reference to the state space graph.
-         */
-        const Graph & getGraph() const;
-
-        /**
          * Calulates the shortest path between two vertices.
          * 
          */
@@ -41,33 +34,40 @@ class Dijkstra {
         string printPath(vector<Vertex> path, Vertex source, Vertex dest);
 
         /**
+         * *
+         * Calls dijkstra's algorithm on source -> stop and stop -> dest 
+         * to find landmark path (shortest path between source and dest while 
+         * stopping through stop)
+         * @param source The starting vertex
+         * @param stop The vertex of the stop in the middle
+         * @param dest The ending vertex
+         * @returns A vector of vertices
+         * **/
+
+        vector<Vertex> landmarkPath(Vertex source, Vertex dest, Vertex stop);
+
+        /**
          * Returns concatanated string with the shortest path
          * @param dest The destination vertex
          */
         string printLandmarkPath(vector<Vertex> path, Vertex source, Vertex stop, Vertex destination);
 
+        /**
+         * Returns a constant reference to the state space graph.
+         * 
+         * @returns A constant reference to the state space graph.
+         */
+        const Graph & getGraph() const;
+
 
         /**
-         * struct used to compare edgeweights 
+         * Struct used to compare edgeweights 
          */
         struct comp {
             bool operator() (const pair<Vertex, int> & a, const pair<Vertex, int> & b) {
                 return a.second > b.second;
             }
         };
-
-        /**
-         * *
-         * Calls dijkstra's algorithm on source -> stop and stop -> dest 
-         * to find landmark path (shortest path between source and dest while 
-         * stopping through stop)
-         * @param source The starting vertex
-         * @param dest The ending vertex
-         * @param stop The vertex of the stop in the middle
-         * @returns a vector of vertices
-         * **/
-
-        vector<Vertex> landmarkPath(Vertex source, Vertex dest, Vertex stop);
 
     private:
         Graph g_;

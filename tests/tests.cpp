@@ -124,28 +124,43 @@ TEST_CASE("Shortest path accurately gets if there is no path") {
 }
 
 TEST_CASE("Landmark path accurately gets the shortest path from source to destination with a stop in the middle") {
-    vector<string> vec = file_to_vector("test/smallSample.txt");
+    vector<string> vec = file_to_vector("tests/smallSample.txt");
     vector<string*> all_data = extract_required_info(vec);
     Dijkstra d(all_data);
     vector<Vertex> actual = d.landmarkPath("CEK", "LIM", "DME");
-    vector<Vertex> expected = {"CEK", "DME", "LIM"};
+
+    vector<Vertex> expected = {"LIM", "DME", "CEK"};
+
     REQUIRE(expected == actual);
+
+    string s = d.printLandmarkPath(actual, "CEK", "DME", "LIM");
+    REQUIRE(s == "Shortest path from CEK -> DME -> LIM: CEK -> DME -> LIM");
 }
 
 TEST_CASE("Landmark path accurately gets the shortest path if there is no path from source to stop") {
-   vector<string> vec = file_to_vector("test/smallSample.txt");
+   vector<string> vec = file_to_vector("tests/smallSample.txt");
    vector<string*> all_data = extract_required_info(vec);
    Dijkstra d(all_data); 
-   vector<Vertex> actual = d.landmarkPath("ASF", "DME", "CEK");
-   vector<Vertex> expected = {""}
-   REQUIRE(actual == expected);
+   vector<Vertex> actual = d.landmarkPath("ASF", "CEK", "DME");
+
+   vector<Vertex> expected = {};
+
+   REQUIRE(expected == actual);
+
+   string s = d.printLandmarkPath(actual, "ASF", "DME", "CEK");
+   REQUIRE(s == "There is no path from ASF -> DME -> CEK :(");
 }
 
 TEST_CASE("Landmark path accurately gets the shortest path if there is no path from stop to destination") {
-   vector<string> vec = file_to_vector("test/smallSample.txt");
+   vector<string> vec = file_to_vector("tests/smallSample.txt");
    vector<string*> all_data = extract_required_info(vec);
    Dijkstra d(all_data); 
-   vector<Vertex> actual = d.landmarkPath("AER", "DME", "KZN");
-   vector<Vertex> expected = {""}
-   REQUIRE(actual == expected);
+   vector<Vertex> actual = d.landmarkPath("AER", "KZN", "DME");
+   
+   vector<Vertex> expected = {};
+   
+   REQUIRE(expected == actual);
+   
+   string s = d.printLandmarkPath(actual, "AER", "DME", "KZN");
+   REQUIRE(s == "There is no path from AER -> DME -> KZN :(");;
 }
