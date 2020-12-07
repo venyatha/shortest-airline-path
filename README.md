@@ -12,7 +12,7 @@ For this project, we needed to use graphs somehow, and flights can be easily and
 
 ## Installation
 
-    Simply download the project from github and run "make" in the folder on the command line to build the project
+Simply download the project from github and run "make" in the folder on the command line to build the project
 
 ## How to use? 
 
@@ -32,6 +32,7 @@ Once these are all inputted, the program wil run and output put the particular s
 To run the tests, you can run "make test" and then "./test" on the command line.
 
 ## Credits
+
 Sude Demir - suded2@illlinois.edu
 Venyatha Manne - vmanne3@illinois.edu
 Luciana Toledo-Lopez - lucianat@illinois.edu
