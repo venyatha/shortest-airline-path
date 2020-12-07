@@ -35,10 +35,21 @@ class Dijkstra {
         vector<Vertex> shortestPath(Vertex source, Vertex dest);
 
         /**
+         * Returns concatanated string with the shortest path
          * @param dest The destination vertex
          */
         string printPath(vector<Vertex> path, Vertex source, Vertex dest);
 
+        /**
+         * Returns concatanated string with the shortest path
+         * @param dest The destination vertex
+         */
+        string printLandmarkPath(vector<Vertex> path, Vertex source, Vertex stop, Vertex destination);
+
+
+        /**
+         * struct used to compare edgeweights 
+         */
         struct comp {
             bool operator() (const pair<Vertex, int> & a, const pair<Vertex, int> & b) {
                 return a.second > b.second;
@@ -53,9 +64,10 @@ class Dijkstra {
          * @param source The starting vertex
          * @param dest The ending vertex
          * @param stop The vertex of the stop in the middle
+         * @returns a vector of vertices
          * **/
 
-        /*void landmarkPath(Vertex * source, Vertex * dest, Vertex * stop);*/
+        vector<Vertex> landmarkPath(Vertex source, Vertex dest, Vertex stop);
 
     private:
         Graph g_;

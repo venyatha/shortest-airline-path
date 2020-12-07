@@ -122,3 +122,30 @@ TEST_CASE("Shortest path accurately gets if there is no path") {
     string s = d.printPath(actual, "AER", "LIM");
     REQUIRE(s == "There is no path from AER -> LIM :(");
 }
+
+TEST_CASE("Landmark path accurately gets the shortest path from source to destination with a stop in the middle") {
+    vector<string> vec = file_to_vector("test/smallSample.txt");
+    vector<string*> all_data = extract_required_info(vec);
+    Dijkstra d(all_data);
+    vector<Vertex> actual = d.landmarkPath("CEK", "LIM", "DME");
+    vector<Vertex> expected = {"CEK", "DME", "LIM"};
+    REQUIRE(expected == actual);
+}
+
+TEST_CASE("Landmark path accurately gets the shortest path if there is no path from source to stop") {
+   vector<string> vec = file_to_vector("test/smallSample.txt");
+   vector<string*> all_data = extract_required_info(vec);
+   Dijkstra d(all_data); 
+   vector<Vertex> actual = d.landmarkPath("ASF", "DME", "CEK");
+   vector<Vertex> expected = {""}
+   REQUIRE(actual == expected);
+}
+
+TEST_CASE("Landmark path accurately gets the shortest path if there is no path from stop to destination") {
+   vector<string> vec = file_to_vector("test/smallSample.txt");
+   vector<string*> all_data = extract_required_info(vec);
+   Dijkstra d(all_data); 
+   vector<Vertex> actual = d.landmarkPath("AER", "DME", "KZN");
+   vector<Vertex> expected = {""}
+   REQUIRE(actual == expected);
+}

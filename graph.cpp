@@ -2,26 +2,26 @@
 
 const Vertex Graph::InvalidVertex = "_CS225INVALIDVERTEX";
 const int Graph::InvalidWeight = INT_MIN;
-const string Graph:: InvalidLabel = "_CS225INVALIDLABEL";
+const string Graph::InvalidLabel = "_CS225INVALIDLABEL";
 const Edge Graph::InvalidEdge = Edge(Graph::InvalidVertex, Graph::InvalidVertex, Graph::InvalidWeight, Graph::InvalidLabel);
 
-Graph::Graph(bool weighted) : weighted(weighted),directed(false),random(Random(0))
+Graph::Graph(bool weighted) : weighted(weighted), directed(false), random(Random(0))
 {
 }
 
-Graph::Graph(bool weighted, bool directed) : weighted(weighted),directed(directed),random(Random(0))
+Graph::Graph(bool weighted, bool directed) : weighted(weighted), directed(directed), random(Random(0))
 {
 }
 
 Graph::Graph(bool weighted, int numVertices, unsigned long seed)
-    :weighted(weighted),
+    : weighted(weighted),
       directed(false),
-     random(Random(seed)) 
+      random(Random(seed))
 {
     if (numVertices < 2)
     {
-     error("numVertices too low");
-     exit(1);
+        error("numVertices too low");
+        exit(1);
     }
 
     vector<Vertex> vertices;
@@ -38,7 +38,7 @@ Graph::Graph(bool weighted, int numVertices, unsigned long seed)
     {
         Vertex next = vertices[i + 1];
         insertEdge(cur, next);
-        if (weighted) 
+        if (weighted)
         {
             int weight = random.nextInt();
             setEdgeWeight(cur, next, weight);
@@ -51,20 +51,20 @@ Graph::Graph(bool weighted, int numVertices, unsigned long seed)
     int numFailures = 0;
     int idx = 0;
     random.shuffle(vertices);
-    while (numFailures < 2) 
+    while (numFailures < 2)
     {
-        if (!insertEdge(vertices[idx], vertices[idx + 1])) 
+        if (!insertEdge(vertices[idx], vertices[idx + 1]))
         {
             ++numFailures;
-        } 
-        else 
+        }
+        else
         {
             // if insertEdge() succeeded...
             if (weighted)
                 setEdgeWeight(vertices[idx], vertices[idx + 1],
                               random.nextInt());
             ++idx;
-            if (idx >= numVertices - 2) 
+            if (idx >= numVertices - 2)
             {
                 idx = 0;
                 random.shuffle(vertices);
@@ -73,17 +73,17 @@ Graph::Graph(bool weighted, int numVertices, unsigned long seed)
     }
 }
 
-vector<Vertex> Graph::getAdjacent(Vertex source) const 
+vector<Vertex> Graph::getAdjacent(Vertex source) const
 {
     auto lookup = adjacency_list.find(source);
 
-    if(lookup == adjacency_list.end())
+    if (lookup == adjacency_list.end())
         return vector<Vertex>();
 
     else
     {
         vector<Vertex> vertex_list;
-        unordered_map <Vertex, Edge> & map = adjacency_list[source];
+        unordered_map<Vertex, Edge> &map = adjacency_list[source];
         for (auto it = map.begin(); it != map.end(); it++)
         {
             vertex_list.push_back(it->first);
@@ -91,7 +91,6 @@ vector<Vertex> Graph::getAdjacent(Vertex source) const
         return vertex_list;
     }
 }
-
 
 Vertex Graph::getStartingVertex() const
 {
@@ -102,7 +101,7 @@ vector<Vertex> Graph::getVertices() const
 {
     vector<Vertex> ret;
 
-    for(auto it = adjacency_list.begin(); it != adjacency_list.end(); it++)
+    for (auto it = adjacency_list.begin(); it != adjacency_list.end(); it++)
     {
         ret.push_back(it->first);
     }
@@ -110,9 +109,9 @@ vector<Vertex> Graph::getVertices() const
     return ret;
 }
 
-Edge Graph::getEdge(Vertex source , Vertex destination) const
+Edge Graph::getEdge(Vertex source, Vertex destination) const
 {
-    if(assertEdgeExists(source, destination, __func__) == false)
+    if (assertEdgeExists(source, destination, __func__) == false)
         return Edge();
     Edge ret = adjacency_list[source][destination];
     return ret;
@@ -132,12 +131,12 @@ vector<Edge> Graph::getEdges() const
         for (auto its = adjacency_list[source].begin(); its != adjacency_list[source].end(); its++)
         {
             Vertex destination = its->first;
-            if(seen.find(make_pair(source, destination)) == seen.end())
+            if (seen.find(make_pair(source, destination)) == seen.end())
             {
                 //this pair is never added to seen
                 ret.push_back(its->second);
-                seen.insert(make_pair(source,destination));
-                if(!directed)
+                seen.insert(make_pair(source, destination));
+                if (!directed)
                 {
                     seen.insert(make_pair(destination, source));
                 }
@@ -166,18 +165,17 @@ Edge Graph::setEdgeLabel(Vertex source, Vertex destination, string label)
     Edge new_edge(source, destination, e.getWeight(), label);
     adjacency_list[source][destination] = new_edge;
 
-    if(!directed)
+    if (!directed)
     {
-        Edge new_edge_reverse(destination,source, e.getWeight(), label);
+        Edge new_edge_reverse(destination, source, e.getWeight(), label);
         adjacency_list[destination][source] = new_edge_reverse;
     }
     return new_edge;
 }
 
-
 string Graph::getEdgeLabel(Vertex source, Vertex destination) const
 {
-    if(assertEdgeExists(source, destination, __func__) == false)
+    if (assertEdgeExists(source, destination, __func__) == false)
         return InvalidLabel;
     return adjacency_list[source][destination].getLabel();
 }
@@ -187,7 +185,7 @@ int Graph::getEdgeWeight(Vertex source, Vertex destination) const
     if (!weighted)
         error("can't get edge weights on non-weighted graphs!");
 
-    if(assertEdgeExists(source, destination, __func__) == false)
+    if (assertEdgeExists(source, destination, __func__) == false)
         return InvalidWeight;
     return adjacency_list[source][destination].getWeight();
 }
@@ -200,27 +198,27 @@ void Graph::insertVertex(Vertex v)
     adjacency_list[v] = unordered_map<Vertex, Edge>();
 }
 
-
 Vertex Graph::removeVertex(Vertex v)
 {
 
     if (adjacency_list.find(v) != adjacency_list.end())
     {
-        if(!directed){
+        if (!directed)
+        {
             for (auto it = adjacency_list[v].begin(); it != adjacency_list[v].end(); it++)
             {
                 Vertex u = it->first;
-                adjacency_list[u].erase(v); 
+                adjacency_list[u].erase(v);
             }
             adjacency_list.erase(v);
             return v;
         }
-        
+
         adjacency_list.erase(v);
-        for(auto it2 = adjacency_list.begin(); it2 != adjacency_list.end(); it2++)
+        for (auto it2 = adjacency_list.begin(); it2 != adjacency_list.end(); it2++)
         {
             Vertex u = it2->first;
-            if (it2->second.find(v)!=it2->second.end())
+            if (it2->second.find(v) != it2->second.end())
             {
                 it2->second.erase(v);
             }
@@ -233,45 +231,43 @@ Vertex Graph::removeVertex(Vertex v)
 
 bool Graph::insertEdge(Vertex source, Vertex destination)
 {
-    if(adjacency_list.find(source)!= adjacency_list.end() 
-    && adjacency_list[source].find(destination)!= adjacency_list[source].end())
+    if (adjacency_list.find(source) != adjacency_list.end() && adjacency_list[source].find(destination) != adjacency_list[source].end())
     {
         //edge already exit
         return false;
     }
 
-    if(adjacency_list.find(source)==adjacency_list.end())
+    if (adjacency_list.find(source) == adjacency_list.end())
     {
         adjacency_list[source] = unordered_map<Vertex, Edge>();
     }
-        //source vertex exists
+    //source vertex exists
     adjacency_list[source][destination] = Edge(source, destination);
-    if(adjacency_list.find(destination)== adjacency_list.end())
+    if (adjacency_list.find(destination) == adjacency_list.end())
     {
         adjacency_list[destination] = unordered_map<Vertex, Edge>();
     }
-    if(!directed)
+    if (!directed)
     {
         adjacency_list[destination][source] = Edge(source, destination);
     }
-    
+
     return true;
 }
 
 Edge Graph::removeEdge(Vertex source, Vertex destination)
 {
-    if(assertEdgeExists(source, destination, __func__) == false)
+    if (assertEdgeExists(source, destination, __func__) == false)
         return InvalidEdge;
     Edge e = adjacency_list[source][destination];
     adjacency_list[source].erase(destination);
     // if undirected, remove the corresponding edge
-    if(!directed)
+    if (!directed)
     {
         adjacency_list[destination].erase(source);
     }
     return e;
 }
-
 
 Edge Graph::setEdgeWeight(Vertex source, Vertex destination, int weight)
 {
@@ -282,11 +278,11 @@ Edge Graph::setEdgeWeight(Vertex source, Vertex destination, int weight)
     Edge new_edge(source, destination, weight, e.getLabel());
     adjacency_list[source][destination] = new_edge;
 
-    if(!directed)
-        {
-            Edge new_edge_reverse(destination,source, weight, e.getLabel());
-            adjacency_list[destination][source] = new_edge_reverse;
-        }
+    if (!directed)
+    {
+        Edge new_edge_reverse(destination, source, weight, e.getLabel());
+        adjacency_list[destination][source] = new_edge_reverse;
+    }
 
     return new_edge;
 }
@@ -304,20 +300,20 @@ bool Graph::assertVertexExists(Vertex v, string functionName) const
 
 bool Graph::assertEdgeExists(Vertex source, Vertex destination, string functionName) const
 {
-    if(assertVertexExists(source,functionName) == false)
+    if (assertVertexExists(source, functionName) == false)
         return false;
-    if(adjacency_list[source].find(destination)== adjacency_list[source].end())
+    if (adjacency_list[source].find(destination) == adjacency_list[source].end())
     {
         if (functionName != "")
             error(functionName + " called on nonexistent edge " + source + " -> " + destination);
         return false;
     }
 
-    if(!directed)
+    if (!directed)
     {
-        if (assertVertexExists(destination,functionName) == false)
+        if (assertVertexExists(destination, functionName) == false)
             return false;
-        if(adjacency_list[destination].find(source)== adjacency_list[destination].end())
+        if (adjacency_list[destination].find(source) == adjacency_list[destination].end())
         {
             if (functionName != "")
                 error(functionName + " called on nonexistent edge " + destination + " -> " + source);
@@ -336,7 +332,6 @@ void Graph::clear()
 {
     adjacency_list.clear();
 }
-
 
 /**
  * Prints a graph error and quits the program.
@@ -376,17 +371,17 @@ void Graph::snapshot()
  */
 void Graph::print() const
 {
-    for (auto it = adjacency_list.begin(); it != adjacency_list.end(); ++it) 
+    for (auto it = adjacency_list.begin(); it != adjacency_list.end(); ++it)
     {
         cout << it->first << endl;
-        for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2) 
+        for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
         {
             std::stringstream ss;
-            ss << it2->first; 
+            ss << it2->first;
             string vertexColumn = "    => " + ss.str();
-            vertexColumn += " " ;
+            vertexColumn += " ";
             cout << std::left << std::setw(26) << vertexColumn;
-            string edgeColumn = "edge label = \"" + it2->second.getLabel()+ "\"";
+            string edgeColumn = "edge label = \"" + it2->second.getLabel() + "\"";
             cout << std::left << std::setw(26) << edgeColumn;
             if (weighted)
                 cout << "weight = " << it2->second.getWeight();
@@ -419,73 +414,83 @@ void Graph::savePNG(string title) const
 
     vector<Vertex> allv = getVertices();
     //lambda expression
-    sort(allv.begin(), allv.end(), [](const Vertex& lhs, const Vertex& rhs) {
+    sort(allv.begin(), allv.end(), [](const Vertex &lhs, const Vertex &rhs) {
         return stoi(lhs.substr(3)) > stoi(rhs.substr(3));
     });
 
     int xpos1 = 100;
     int xpos2 = 100;
     int xpos, ypos;
-    for (auto it : allv) {
+    for (auto it : allv)
+    {
         string current = it;
-        neatoFile 
-            << "\t\"" 
+        neatoFile
+            << "\t\""
             << current
             << "\"";
-        if (current[1] == '1') {
+        if (current[1] == '1')
+        {
             ypos = 100;
             xpos = xpos1;
             xpos1 += 100;
         }
-        else {
+        else
+        {
             ypos = 200;
             xpos = xpos2;
             xpos2 += 100;
         }
-        neatoFile << "[pos=\""<< xpos << "," << ypos <<"\"]";
+        neatoFile << "[pos=\"" << xpos << "," << ypos << "\"]";
         neatoFile << ";\n";
     }
 
     neatoFile << "\tedge [penwidth=\"1.5\", fontsize=\"7.0\"];\n";
 
-    for (auto it = adjacency_list.begin(); it != adjacency_list.end(); ++it) 
+    for (auto it = adjacency_list.begin(); it != adjacency_list.end(); ++it)
     {
-        for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2) 
+        for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
         {
             string vertex1Text = it->first;
             string vertex2Text = it2->first;
 
-            neatoFile << "\t\"" ;
+            neatoFile << "\t\"";
             neatoFile << vertex1Text;
-            neatoFile << "\" -- \"" ;
+            neatoFile << "\" -- \"";
             neatoFile << vertex2Text;
             neatoFile << "\"";
 
             string edgeLabel = it2->second.getLabel();
-            if (edgeLabel == "WIN") {
+            if (edgeLabel == "WIN")
+            {
                 neatoFile << "[color=\"blue\"]";
-            } else if (edgeLabel == "LOSE") {
-                neatoFile << "[color=\"red\"]";                
-            } else {
+            }
+            else if (edgeLabel == "LOSE")
+            {
+                neatoFile << "[color=\"red\"]";
+            }
+            else
+            {
                 neatoFile << "[color=\"grey\"]";
             }
             if (weighted && it2->second.getWeight() != -1)
                 neatoFile << "[label=\"" << it2->second.getWeight() << "\"]";
-            
-            neatoFile<< "[constraint = \"false\"]" << ";\n";
+
+            neatoFile << "[constraint = \"false\"]"
+                      << ";\n";
         }
     }
 
     neatoFile << "}";
     neatoFile.close();
-    string command = "neato -n -Tpng " + filename + " -o " + "images/" + title
-                     + ".png 2> /dev/null";
+    string command = "neato -n -Tpng " + filename + " -o " + "images/" + title + ".png 2> /dev/null";
     int result = system(command.c_str());
 
-
-    if (result == 0) {
+    if (result == 0)
+    {
         cout << "Output graph saved as images/" << title << ".png" << endl;
-    } else {
+    }
+    else
+    {
         cout << "Failed to generate visual output graph using `neato`. Install `graphviz` or `neato` to generate a visual graph." << endl;
     }
 
