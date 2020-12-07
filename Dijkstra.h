@@ -3,9 +3,12 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include <map>
+#include <queue>
 
 #include "graph.h"
 #include "edge.h"
+using namespace std;
 
 class Dijkstra {
     public:
@@ -16,7 +19,7 @@ class Dijkstra {
          * @param start The starting vertex
          * @param all_data All of the data needed to form the vertices, edges, and edge weights of the graph
          */
-        Dijkstra(Vertex* start, vector<string*> all_data);
+        Dijkstra(vector<string*> all_data);
 
         /**
          * Returns a constant reference to the state space graph.
@@ -25,7 +28,36 @@ class Dijkstra {
          */
         const Graph & getGraph() const;
 
+        /**
+         * Calulates the shortest path between two vertices.
+         * 
+         */
+        vector<Vertex> shortestPath(Vertex source, Vertex dest);
+
+        /**
+         * @param dest The destination vertex
+         */
+        string printPath(vector<Vertex> path, Vertex source, Vertex dest);
+
+        struct comp {
+            bool operator() (const pair<Vertex, int> & a, const pair<Vertex, int> & b) {
+                return a.second > b.second;
+            }
+        };
+
+        /**
+         * *
+         * Calls dijkstra's algorithm on source -> stop and stop -> dest 
+         * to find landmark path (shortest path between source and dest while 
+         * stopping through stop)
+         * @param source The starting vertex
+         * @param dest The ending vertex
+         * @param stop The vertex of the stop in the middle
+         * **/
+
+        /*void landmarkPath(Vertex * source, Vertex * dest, Vertex * stop);*/
+
     private:
         Graph g_;
-        Vertex start_;
+        map<Vertex, int> vertex_to_val;
 };

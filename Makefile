@@ -33,7 +33,7 @@ $(EXENAME): output_msg $(OBJS)
 readFromFile.o: main.cpp readFromFile.cpp Dijkstra.cpp graph.cpp
 	$(CXX) $(CXXFLAGS) main.cpp readFromFile.cpp Dijkstra.cpp graph.cpp
 
-test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Dijkstra.cpp graph.cpp
+test: output_msg catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Dijkstra.cpp graph.cpp 
 	$(LD) catch/catchmain.cpp tests/tests.cpp readFromFile.cpp Dijkstra.cpp graph.cpp $(LDFLAGS) -o test
 
 clean:
