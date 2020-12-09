@@ -24,7 +24,8 @@ TEST_CASE("Verify that file_to_vector works on a small example") {
                                 "2B,410,DME,4029,UUA,6156,,0,CR2", 
                                 "2B,410,EGO,6156,KGD,2812,,1,CR2", 
                                 "2I,8359,CUZ,2812,LIM,4029,,0,142", 
-                                "141"};
+                                "141",
+                                "2B,410,CEK,2968,LIM,4029,,0,CR2"};
 
 	REQUIRE(expected == actual);
 }
@@ -43,7 +44,8 @@ TEST_CASE("Verify that extract_required_info works correctly") {
                                 "DME,0,AER",
                                 "DME,0,UUA",
                                 "EGO,1,KGD",
-                                "CUZ,0,LIM"};
+                                "CUZ,0,LIM",
+                                "CEK,0,LIM"};
 
     for (unsigned i = 0; i < expected.size(); i++) {
         REQUIRE(expected[i] == *actual[i]);
@@ -67,6 +69,7 @@ TEST_CASE("Dijkstra(start, all_data) constructor creates the correct vertices") 
     REQUIRE(g.vertexExists("KGD"));
     REQUIRE(g.vertexExists("CUZ"));
     REQUIRE(g.vertexExists("LIM"));
+    REQUIRE(g.getVertices().size() == 11);
 }
 
 TEST_CASE("Dijkstra(start, all_data) constructor creates the correct edges") {
@@ -85,6 +88,9 @@ TEST_CASE("Dijkstra(start, all_data) constructor creates the correct edges") {
     REQUIRE(g.edgeExists("DME", "UUA"));
     REQUIRE(g.edgeExists("EGO", "KGD"));
     REQUIRE(g.edgeExists("CUZ", "LIM"));
+    REQUIRE(g.edgeExists("CEK", "LIM"));
+    REQUIRE(g.getEdges().size() == 11);
+
 }
 
 TEST_CASE("Shortest path accurately gets the shortest path") {
@@ -127,7 +133,7 @@ TEST_CASE("Landmark path accurately gets the shortest path from source to destin
     vector<string> vec = file_to_vector("tests/smallSample.txt");
     vector<string*> all_data = extract_required_info(vec);
     Dijkstra d(all_data);
-    vector<Vertex> actual = d.landmarkPath("CEK", "LIM", "DME");
+    vector<Vertex> actual = d.landmarkPath("CEK", "LIM", "DME"); // note that there is a direct route from CEK -> LIM
 
     vector<Vertex> expected = {"LIM", "DME", "CEK"};
 
