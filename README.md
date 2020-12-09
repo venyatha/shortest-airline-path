@@ -1,6 +1,6 @@
 # suded2-vmanne3-violaz2-lucianat
 
-## CS225 Final Project: Openflights Dijkstra's Algorithm 
+## CS225 Final Project: OpenFlights Dijkstra's Algorithm 
 
 The purpose of our program is to find the shortest airplane paths between two cities, possibly with a stop in 
 between. We got our data from https://openflights.org/data.html, where we used the routes database. Instead of
@@ -12,11 +12,15 @@ For this project, we needed to use graphs somehow, and flights can be easily and
 
 ## Installation
 
-Simply download the project from github and run `make` in the folder on the command line to build the project
+Simply download the project from github.
 
 ## How to use? 
 
-Once the project is downloaded and built, you can run `./finalproj`. This will prompt you to input whether you would like to run shortest path or landmark path
+Once the project is downloaded, add your routes dataset into the project folder (your datset must be a text file formatted like the OpenFlights one, or you can just use the OpenFlights one.) 
+
+On main.cpp, line 11, change the file path to your data file. Then, run `make` in the project folder on the command line to build the project.
+
+you can run `./finalproj`. This will prompt you to input whether you would like to run shortest path or landmark path
 - Shortest path will give you the shortest path between two airports
 - Landmark path will give you the shortest path betweeen two aiports with a stop in the middle at a 
 particular airport
