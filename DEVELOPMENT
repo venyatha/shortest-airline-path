@@ -37,9 +37,10 @@ figure out what our expected matrix was supposed to look like, but after analyzi
 spreadsheet, we were able to match our expected to the actual. We were eventually able to get all 4 tests we have
 written to pass. However, we starting getting segfaults we were unable to solve, so we scrapped our entire adjacency
 matrix and instead stored our data into a graph, in which the vertices are the airports, the edges are the routes,
-and the edge weights are the number of stops between the source and destination airports. We then used our graph to
-implement our shortest path function, which gets the shortest path based on the number of stops between the source
-airport and the destination airport. We then wrote the unit tests required to test the functionality of our Dijstrka
+and the edge weights are the number of stops between the source and destination airports. We built our graph the same
+way we did in lab_ml. We then used our graph to implement our shortest path function, which gets the shortest path based 
+on the number of stops between the source airport and the destination airport. Our shortest path function was based on
+pseudocode that we found on Wikipedia. We then wrote the unit tests required to test the functionality of our Dijstrka
 class and shortestPath algorithm while making sure to include edge cases like having no path between edges and direct
 flights.
 
