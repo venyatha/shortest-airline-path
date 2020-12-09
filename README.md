@@ -17,9 +17,9 @@ Simply download the project from github and run "make" in the folder on the comm
 ## How to use? 
 
 Once the project is downloaded and built, you can run "./finalproj". This will prompt you to input whether you would like to run shortest path or landmark path
-    - Shortest path will give you the shortest path between two airports
-    - Landmark path will give you the shortest path betweeen two aiports with a stop in the middle at a 
-    particular airport
+- Shortest path will give you the shortest path between two airports
+- Landmark path will give you the shortest path betweeen two aiports with a stop in the middle at a 
+particular airport
 
 Please input either "shortest path" or "landmark path"
 
@@ -33,7 +33,7 @@ To run the tests, you can run "make test" and then "./test" on the command line.
 
 ## Credits
 
-Sude Demir - suded2@illlinois.edu
-Venyatha Manne - vmanne3@illinois.edu
-Luciana Toledo-Lopez - lucianat@illinois.edu
+Sude Demir - suded2@illlinois.edu <br />
+Venyatha Manne - vmanne3@illinois.edu <br />
+Luciana Toledo-Lopez - lucianat@illinois.edu <br />
 Viola Zhao - violaz2@illinois.edu
